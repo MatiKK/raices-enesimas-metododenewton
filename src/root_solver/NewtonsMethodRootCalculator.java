@@ -119,11 +119,12 @@ public final class NewtonsMethodRootCalculator {
 	private static double sqrtUnchecked(double x) {
 		double initial_value = bestApproximation(x, 2);
 		double result = initial_value;
+		double ONE_HALF = .5;
 		for (int i = 0; i < NEWTON_METHOD_ITERATIONS; i++)
 			// f(z) = z^2 - x, f'(z) = 2*z
 			// z_n+1 = z_n - ((z_n)^2 - x) / (2 * z_n)
 			// z_n+1 = (1/2) * (z_n + x/z_n)
-			result = (1.0d / 2.0d) * (result + x / result);
+			result = ONE_HALF * (result + x / result);
 		return result;
 	}
 
@@ -140,11 +141,12 @@ public final class NewtonsMethodRootCalculator {
 	private static double cbrtUnchecked(double x) {
 		double initial_value = bestApproximation(x, 3);
 		double result = initial_value;
+		double ONE_THIRD = 1d/3d;
 		for (int i = 0; i < NEWTON_METHOD_ITERATIONS; i++)
 			// f(z) = z^3 - x, f'(z) = 3*z^2
 			// z_n+1 = z_n - ((z_n)^3 - x) / (3 * (z_n)^2)
 			// z_n+1 = (1/3) * (2*z_n + x/(z_n)^2)
-			result = (1.0d / 3.0d) * (2.0d * result + x / (result * result));
+			result = ONE_THIRD * (2.0d * result + x / (result * result));
 		return result;
 	}
 }
