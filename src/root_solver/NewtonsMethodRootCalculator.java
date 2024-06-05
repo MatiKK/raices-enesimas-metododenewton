@@ -63,7 +63,10 @@ public final class NewtonsMethodRootCalculator {
 		if (n < 0) return 1.0d / nthRoot(x, -n); // x**(-1/a) = 1/x**(1/a)
 		if (n == 0) return UNDEFINED;
 		boolean nIsEven = (n & 1) == 0;
-		if (nIsEven && isNegative(x)) return UNDEFINED;
+		if (isNegative(x)) {
+			if (nIsEven) return UNDEFINED;
+			else return -nthRoot(-x,n); // si el indice es impar, nthrt(x) = -nthrt(-x)
+		}
 		if (n == 1 || isNeutralValue(x)) return x;
 		if (n == 2) return sqrtUnchecked(x);
 		if (n == 3) return cbrtUnchecked(x);
