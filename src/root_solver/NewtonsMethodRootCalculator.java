@@ -28,9 +28,18 @@ public final class NewtonsMethodRootCalculator {
 	private static final int NEWTON_METHOD_ITERATIONS = 20;
 	private static final double UNDEFINED = Double.NaN;
 
+	/**
+	 * return floor(log2(floor(x)/n))
+	 * bit shift operators para reemplazar
+	 * multiplicaciones/divisiones por 2
+	 */
 	private static double bestApproximation(double x, int n) {
-		// log2(x/n)
-		return Math.log(x / n)/Math.log(2);
+		int result = 1;
+		int ix = (int) x;
+		while ((ix = ix >> n) != 0) {
+			result = result << 1;
+		}
+		return result;
 	}
 
 	// return x ** n, donde x != 0 && n un numero natural
@@ -84,19 +93,14 @@ public final class NewtonsMethodRootCalculator {
 		double initial_value = bestApproximation(x, n);
 		double result = initial_value;
 
+		// evitar evaluaciones cada iteración
+		double c = (1.0d / n);
+		int n_1 = n - 1;
+
 		for (int i = 0; i < NEWTON_METHOD_ITERATIONS; i++)
 			// f(z) = z^N - x, f'(z) = N*z^(N-1)
 			// z_n+1 = z_n - ((z_n)^N - x) / (N * (z_n)^(N-1))
-
-			result = (1.0d/n) *((n-1) * result +
-					x / (raisedToIntegerExponent(result, n - 1)));
-
-//			result = result - (raisedToIntegerExponent(result, p) - x) /
-//			(p * raisedToIntegerExponent(result, p - 1));
-
-//			result = ((double)(p-1) / (double) p) * result +
-//					x / (p * raisedToIntegerExponent(result, p - 1));
-
+			result = c *(n_1 * result + x / (raisedToIntegerExponent(result, n_1)));
 		return result;
 	}
 
