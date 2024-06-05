@@ -5,7 +5,7 @@ public class Test {
 	public static void main(String[] args) {
 
 		double x = -216;
-		int p = 3;
+		int p = 0;
 
 		mostrarResultadoConMetodoNewton(x, p);
 		System.out.println();
@@ -20,7 +20,8 @@ public class Test {
 
 	private static void mostrarResultadoConMath_root(double radicando, int indice) {
 		System.out.println("java.lang.Math.method:");
-		mostrarAproximacionRaizEnesima(radicando, indice, Math.pow(radicando, 1d/indice));
+		mostrarAproximacionRaizEnesima(radicando,indice,
+				nthRootConMathPow(radicando, indice));
 	}
 
 	private static void mostrarAproximacionRaizEnesima(double radicando, int indice, double resultadoAproximado) {
@@ -37,5 +38,15 @@ public class Test {
 				);
 	}
 
+	private static double nthRootConMathPow(double x, int n) {
+		if (n < 0) return 1.0d / nthRootConMathPow(x, -n);
+		boolean nIsEven = (n & 1) == 0;
+		if (x < 0) {
+			if (nIsEven) return Double.NaN;
+			else return -nthRootConMathPow(-x,n);
+		}
+		return Math.pow(x, 1d/n);
+
+	}
 
 }
