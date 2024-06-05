@@ -4,23 +4,35 @@ public class Test {
 
 	public static void main(String[] args) {
 
-		double x;
-		int p;
-		double result1;
-		double result2;
+		double x = 216;
+		int p = 3;
 
-		x = 1000;
-		p = -3;
+		mostrarResultadoConMetodoNewton(x, p);
+		mostrarResultadoConMath_root(x, p);
 
-		result1 = NewtonsMethodRootCalculator.nthRoot(x, p);
-		result2 = Math.pow(x,1d/p);
-
-		System.out.println(result1 + "^" + p + " = " + x);
-		System.out.println(Math.pow(result1, p) == x);
-
-		System.out.println(result2 + "^" + p + " = " + x);
-		System.out.println(Math.pow(result2, p) == x);
+		System.out.println(NewtonsMethodRootCalculator.nthRoot(x, p));
+		System.out.println(NewtonsMethodRootCalculator.cbrt(x));
 
 	}
+
+	private static void mostrarResultadoConMetodoNewton(double radicando, int indice) {
+		System.out.println("Método de Newton:");
+		mostrarAproximacionRaizEnesima(radicando, indice, NewtonsMethodRootCalculator.nthRoot(radicando, indice));
+	}
+
+	private static void mostrarResultadoConMath_root(double radicando, int indice) {
+		System.out.println("Math.pow():");
+		mostrarAproximacionRaizEnesima(radicando, indice, Math.pow(radicando, 1d/(double) indice));
+	}
+
+	private static void mostrarAproximacionRaizEnesima(double radicando, int indice, double resultadoAproximado) {
+		System.out.println(
+				"("+resultadoAproximado +")^"
+				+ indice + " = " +
+				Math.pow(resultadoAproximado, indice)
+				+ " ≈ " + radicando
+				);
+	}
+
 
 }
