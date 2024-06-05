@@ -55,7 +55,17 @@ public final class NewtonsMethodRootCalculator {
 
 	/**
 	 * Calcula la raíz enésima de {@code x}.
-	 * @param x valor para calcular su raíz cúbica
+	 * <ul> Casos especiales:
+	 * <li> Si {@code n == 0}, el resultado es {@code NaN}.
+	 * <li> Si {@code n < 0}. el resultado es <sup>n</sup>{@code \u221Ax = }
+	 * {@code 1/}<sup>-n</sup>{@code \u221Ax}.
+	 * <li> Si {@code x < 0} y {@code n} es par, el resultado es {@code NaN}.
+	 * <li> Si {@code x < 0} y {@code n} es impar, el resultado es
+	 * 
+	 * <sup>n</sup>{@code \u221Ax = -} <sup>n</sup>{@code \u221A-x}.
+	 * </ul>
+	 * 
+	 * @param x valor para calcular su raíz enésima
 	 * @param n índice de la raíz a calcular
 	 * @return la raíz enésima de {@code x}: <sup>n</sup>{@code \u221Ax}
 	 */
@@ -93,7 +103,8 @@ public final class NewtonsMethodRootCalculator {
 	/**
 	 * Calcula la raíz cuadrada de {@code x}.
 	 * @param x valor para calcular su raíz cuadrada
-	 * @return la raíz cuadrada de {@code x}: {@code \u221Ax}
+	 * @return la raíz cuadrada de {@code x}: {@code \u221Ax}.
+	 * Si {@code x < 0}, el resultado is {@code NaN}.
 	 */
 	public static double sqrt(double x) {
 		if (isNegative(x)) return UNDEFINED;
